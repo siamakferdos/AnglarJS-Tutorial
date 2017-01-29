@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angular Tutorial</title>	
+	<script src="angular.js" ></script>
+
+
+	<style type="text/css">
+		code{
+			background-color: silver;
+		}
+		div.indent{
+			padding : 0 0 0 50px;
+
+		}
+		[ng-class='subject']{
+			background-color: green;
+			color: white;
+			display: block;
+		}
+		[ng-class='mainSubject']{
+			background-color: gray;
+			color: yellow;
+			display: block;
+			height: 50px;
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h3>NOTES:</h3>
+	<ul>
+		<li>
+			While it is common in HTML applications to place scripts at the end of the <code>&lt;body&gt;</code> element, it is recommended that you load the AngularJS library either in the <code>&lt;head&gt;</code> or at the start of the <code>&lt;body&gt;</code>.
+			This is because calls to angular.module can only be compiled after the library has been loaded.
+		</li>
+		<li>
+			AngularJS directives are extended HTML attributes with the prefix ng-. Like: <code>ng-app</code> & <code>ng-init</code>
+		</li>
+		<li>
+			The ng-app directive will auto-bootstrap (automatically initialize) the application when a web page is loaded.
+		</li>
+		<li>
+			Remember, when naming a new directive, you must use a camel case name, myDirective, but when invoking it, you must use - separated name, my-directive.
+		</li>
+	</ul>
+	<h3>Subjects:</h3>
+	<div ng-class="mainSubject" >Work with data</div>
+	<div ng-class="subject">Binding-----------------------------------</div> <br />
+	<!-- If put a name for app, then it will not work unless make controller js file -->
+	<!-- <div ng-app=""> 
+		<p>Name: <input type="text" ng-model="name"></p>
+		<p ng-bind="name"></p>
+		{{name}}
+	</div> -->
+
+	<div ng-class="subject">Initialing----------------------------------</div> <br />
+	<!-- <div ng-app="" ng-init="firstName='John'">
+		<p>The name is <div ng-bind="firstName"></div></p>
+	</div> -->
+
+	<div ng-class="subject">Expression------------------------------------</div> <br />
+	<!-- <div ng-app="">
+		<p>{{ 2 == 3 ? 5 + 5 : 8 }}</p>
+	</div> -->	
+
+	<div ng-class="subject">Expression at anywhare---------------------------------------</div> <br />
+	<!-- <div ng-app="" ng-init="myCol='lightblue'">
+		<input style="background-color:{{myCol}}" ng-model="myCol" value="{{myCol}}">
+	</div> -->
+
+	<div ng-class="subject">AngularJS Objects---------------------------------------</div> <br />
+	<!-- <div ng-app="" ng-init="person={firstName:'John',lastName:'Doe'}">
+		<p>The name is {{ person.lastName }}</p>
+	</div> -->
+
+	<div ng-class="subject">Repeating  HTML Elements ---------------------------------------</div> <br />
+	<!-- <div ng-app="" ng-init="names=['Jani','Hege','Kai']">
+		<ul>
+		<li id="{{x}}" ng-repeat="x in names">
+				{{ $index + '. ' + x }}
+			</li>
+		</ul>
+	</div> -->	
+
+	<div ng-class="mainSubject" >Application and controll</div>
+	<div ng-class="subject">Simple App and Controller--------------------------------------</div> <br />
+	<div class="indent">In AngularJS, $scope is the application object (the owner of application variables and functions). </div>
+	<!-- <div ng-app="myApp" ng-controller="myCtrl">
+	First Name: <input type="text" ng-model="firstName"><br>
+	Last Name: <input type="text" ng-model="lastName"><br>
+	<br>
+	Full Name: {{firstName + " " + lastName}}
+</div>-->
+<script>
+		// var app = angular.module('myApp', []);
+		// app.controller('myCtrl', function($scope) {
+		// 	$scope.firstName= "John";
+		// 	$scope.lastName= "Doe";
+		// });
+</script>
+
+<div ng-class="subject">Create New Directives--------------------------------------</div> <br />
+<div class="indent">Custom directive can be restrict by four method contains Attributes(A), Class(C), ElementName Or Tag(E) and Comment(M) where complex of them can gather in single string. Default of this restriction is "EA", so using in class doesn't show any thing till adding "C" them.</div>
+	<!-- <div ng-app="myApp" ng-controller="myCtrl">
+
+	<my-direct></my-direct>
+	<div my-direct></div>
+	<div class="my-direct"></div>
+
+</div> -->
+<script>
+	// var app = angular.module("myApp", []);
+	// app.directive("myDirect", function() {
+		// 	return {
+			// 		restrict : "ACEM",
+			// 		template : "<h1>Made by a directive!</h1>"
+			// 	};
+			// });
+</script>
+
+<div ng-class="subject">rootScope and scope of $scope ----------------------------</div> <br />
+<div class="indent">All applications have a  <code>&lt;$rootScope&gt;</code> which is the scope created on the HTML element that contains the ng-app directive. The rootScope is available in the entire application.</div>
+<!-- <div ng-app="myApp" >
+	rootScope : {{color}}
+	<div ng-controller="myCtrl">
+		$scope: {{color}}
+	</div>
+	rootScope: {{color}}
+</div> -->
+<script>
+		// var app = angular.module('myApp', []);
+		// app.run(function($rootScope) {
+		// 	$rootScope.color = 'blue';
+		// });
+		// app.controller('myCtrl', function($scope) {
+		// 	$scope.color = "red";
+		// });
+</script>
+
+
+<div ng-class="mainSubject" >Filters</div>
+<div ng-class="subject">Filters ----------------------------</div> <br />
+<div class="indent">Filters can be added to expressions by using the pipe character <code>"|"</code>, followed by a filter. like: <code>filter</code>(Select a subset of items from an array.) or <code>orderBy</code>(Orders an array by an expression.)</div>
+<!-- <div ng-app="myApp" ng-controller="namesCtrl">
+	<ul>
+		<li ng-repeat="x in names | orderBy:'country'">
+			{{ x.name + ', ' + x.country | uppercase}}
+		</li>
+	</ul>
+
+	<p><input type="text" ng-model="test"></p>
+	<ul>
+		<li ng-repeat="x in names | filter : test">
+			{{ x }}
+		</li>
+	</ul>
+
+	<table border="1" width="100%">
+		<tr>
+			<th ng-click="orderByMe('name')">Name</th>
+			<th ng-click="orderByMe('country')">Country</th>
+		</tr>
+		<tr ng-repeat="x in names | orderBy:myOrderBy">
+			<td>{{x.name}}</td>
+			<td>{{x.country}}</td>
+		</tr>
+	</table>	
+</div> -->
+<script>
+	// angular.module('myApp', []).controller('namesCtrl', function($scope) {
+	// 	$scope.names = [
+	// 	{name:'Jani',country:'Norway'},
+	// 	{name:'Carl',country:'Sweden'},
+	// 	{name:'Margareth',country:'England'},
+	// 	{name:'Hege',country:'Norway'},
+	// 	{name:'Joe',country:'Denmark'},
+	// 	{name:'Gustav',country:'Sweden'},
+	// 	{name:'Birgit',country:'Denmark'},
+	// 	{name:'Mary',country:'England'},
+	// 	{name:'Kai',country:'Norway'}
+	// 	];
+
+	// 	$scope.myOrderBy = 'name';
+	// 	$scope.orderByMe = function(x) {
+	// 		$scope.myOrderBy = x;
+	// 	}		
+	// });	
+</script>
+
+<div ng-class="subject">Custom Filters ----------------------------</div> <br />
+<!-- <div ng-app="myApp" ng-controller="namesCtrl">
+	<ul>
+		<li ng-repeat="x in names">
+			{{x | myFormat}}
+		</li>
+	</ul>
+</div> -->
+<script>
+	// var app = angular.module('myApp', []);
+	// app.filter('myFormat', function() {
+	// 	return function(x) {
+	// 		var i, c, txt = "";
+	// 		x = x.split("")
+	// 		for (i = 0; i < x.length; i++) {
+	// 			c = x[i];
+	// 			if (i % 2 == 0) {
+	// 				c = c.toUpperCase();
+	// 			}
+	// 			txt += c;
+	// 		}
+	// 		return txt;
+	// 	};
+	// });
+	// app.controller('namesCtrl', function($scope) {
+	// 	$scope.names = ['Jani', 'Carl', 'Margareth', 'Hege', 'Joe', 'Gustav', 'Birgit', 'Mary', 'Kai'];
+	// });
+</script>
+
+<div ng-class="mainSubject" >Work with server</div>
+
+<div ng-class="subject">$http ----------------------------</div> <br />
+<div class="indent">Requests for data from a different server (than the requesting page), are called cross-site HTTP requests. In modern browsers, cross-site HTTP requests from scripts are restricted to same site for security reasons. You must add allowance to cross-site access. Asp example: Response.AppendHeader("Access-Control-Allow-Origin", "*")</div>
+<!-- <div ng-app="myApp" ng-controller="customersCtrl"> 
+	<table>
+		<tr ng-repeat="x in names">
+			<td>{{ x.Name }}</td>
+			<td>{{ x.Country }}</td>
+		</tr>
+	</table>
+</div> -->
+<script>
+	// var app = angular.module('myApp', []);
+	// app.controller('customersCtrl', function($scope, $http) {
+	// 	$http.get("http://www.w3schools.com/angular/customers_sql.aspx")
+	// 	.then(function(response) {$scope.names = response.data.records;});
+	// });
+</script>
+
+<div ng-class="mainSubject" >DOM</div>
+<div ng-class="subject">attributes ----------------------------</div> <br />
+<!--<div ng-app="" ng-init="mySwitch=true">
+	<button ng-disabled="mySwitch">Click Me!</button>
+	<input type="checkbox" ng-model="mySwitch">Button {{ mySwitch }}
+
+	<p ng-show="2 > 1">I am visible.</p>
+	<p ng-hide="2 > 1">I am not visible.</p>
+</div>
+-->
+
+<div ng-class="mainSubject" >Events</div>
+<div ng-class="subject">event ----------------------------</div> <br />
+<!-- <div ng-app="myApp" ng-controller="myCtrl">
+	<button ng-click="count = count + 1">Click me!</button>
+	<button ng-click="myFunction()">Click me!(Function call)</button>
+	<div ng-mousemove="count = count + 1">Mouse over me!</button>
+
+		<h1>{{ count }}</h1>
+	</div>
+
+	<button ng-click="myFunc()">Click Me!</button>
+	<div ng-show="showMe">
+		<h1>Menu:</h1>
+		<div>Pizza</div>
+		<div>Pasta</div>
+		<div>Pesce</div>
+	</div>
+-->
+</div>
+<script>
+	// var app = angular.module('myApp', []);
+	// app.controller('myCtrl', function($scope) {
+	// 	$scope.myFunction = function() {
+	// 		$scope.count++;
+	// 	}
+
+	// 	$scope.showMe = false;
+	// 	$scope.myFunc = function() {
+	// 		$scope.showMe = !$scope.showMe;
+	// 	}
+
+	// 	$scope.count = 0;
+	// });
+</script>
+
+<div ng-class="subject">$event ----------------------------</div> <br />
+<div class="indent">The $event object contains the browser's event object</div>
+<!-- <div ng-app="myApp" ng-controller="myCtrl">
+<h1 ng-mousemove="myFunc($event)">Mouse Over Me!</h1>
+	<p>Coordinates: {{x + ', ' + y}}</p>
+</div> -->
+<script>
+	// var app = angular.module('myApp', []);
+	// app.controller('myCtrl', function($scope) {
+	// 	$scope.myFunc = function(myE){
+	// 		$scope.x = myE.clientX;
+	// 		$scope.y = myE.clientY;
+	// 	}
+	// });
+</script>
+
+<div ng-class="mainSubject" >Controls</div>
+<div ng-class="subject">Reset ----------------------------</div> <br />
+<!-- <div ng-app="myApp" ng-controller="formCtrl">
+	<form>
+		First Name:<br>
+		<input type="text" ng-model="user.firstName"><br>
+		Last Name:<br>
+		<input type="text" ng-model="user.lastName">
+		<br><br>
+		<button ng-click="reset()">RESET</button>
+	</form>
+	<p>form = {{user }}</p>
+	<p>master = {{master}}</p>
+</div> -->
+<script>
+	// var app = angular.module('myApp', []);
+	// app.controller('formCtrl', function($scope) {
+	// 	$scope.master = {firstName:"John", lastName:"Doe"};
+	// 	$scope.reset = function() {
+	// 		$scope.user = angular.copy($scope.master);
+	// 	};
+	// 	$scope.reset();
+	// });
+</script>
+
+
+
+<div ng-class="subject">Status ---------------------------------------</div> <br />
+	<!-- <div ng-app="">
+		<form name="myForm" ng-init="myText = 'post@myweb.com'">
+			<input type="email" name="myAddress" ng-model="myText" required>	
+			<h3>For Input:	</h3>
+			<p>Valid: {{myForm.myAddress.$valid}} (if true, the value meets all criteria).</p>
+			<p>invalid: {{myForm.myAddress.$invalid}} (if true, the value meets no criteria).</p>
+			<p>Dirty: {{myForm.myAddress.$dirty}} (if true, the value has been changed).</p>
+			<p>pristine: {{myForm.myAddress.$pristine}} (if true, the field has not been modified yet).</p>
+			<p>Touched: {{myForm.myAddress.$touched}} (if true, the field has been in focus).</p>
+			<p>UnTouched: {{myForm.myAddress.$untouched}} (if true, the field has not been in focus).</p>
+
+			<h3>For Form:	</h3>
+			<p>Valid: {{myForm.$valid}} (if true, the value meets all criteria).</p>
+			<p>invalid: {{myForm.$invalid}} (if true, the value meets no criteria).</p>
+			<p>Dirty: {{myForm.$dirty}} (if true, the value has been changed).</p>
+			<p>pristine: {{myForm.$pristine}} (if true, the field has not been modified yet).</p>
+			<p>submitted: {{myForm.$submitted}} (if true, The form is submitted).</p>
+		</form>
+	</div> -->
+
+
+	<div ng-class="subject">CSS Classes ---------------------------------------</div> <br />
+	<style>
+		/*input.ng-empty,
+		input.ng-not-empty,
+		input.ng-touched,
+		input.ng-untouched,		
+		input.ng-dirty,
+		input.ng-pending,
+		input.ng-pristine{background-color: gray;}
+		input.ng-invalid { background-color: lightblue; }
+		input.ng-valid{background-color: blue;}
+		form.ng-pristine {
+      		background-color: lightblue;
+		}
+		form.ng-dirty {
+    		background-color: pink;
+		}
+		form.ng-valid {
+    		background-color: red;
+    	}*/
+    </style>
+	<!-- <div ng-app="">
+		<form ng-app="" name="myForm">
+			<input name="myAddress" ng-model="text" required type="email">
+		</form>
+	</div> -->
+
+	<div ng-class="subject">Validation ---------------------------------------</div> <br />
+<!-- 	<div ng-app="">
+		<form name="myForm">
+			<input type="email" name="myAddress" ng-model="emailAddress">  
+		</form>
+		<div ng-show="myForm.myAddress.$error.email">Not a valid e-mail address</div>
+	</div>	 -->
+	
+
+	<div ng-class="subject">Custom Validator ---------------------------------------</div> <br />
+<!-- 	<div ng-app="myApp">
+		<form name="myForm">
+			<input name="myInput" ng-model="myInput" required my-directive>
+		</form>
+		<h1>{{myForm.myInput.$valid}}</h1>
+		<p>The input field must contain the character "e" to be consider valid.</p>
+	</div> -->
+	<script>
+			// var app = angular.module('myApp', []);
+			// app.directive('myDirective', function() {
+			// 	return {
+			// 		require: 'ngModel',
+			// 		link: function(scope, element, attr, mCtrl) {
+			// 			function myValidation(value) {
+			// 				if (value.indexOf("e") > -1) {
+			// 					mCtrl.$setValidity('charE', true);
+			// 				} else {
+			// 					mCtrl.$setValidity('charE', false);
+			// 				}
+			// 				return value;
+			// 			}
+			// 			mCtrl.$parsers.push(myValidation);
+			// 		}
+			// 	};
+			// });
+</script>
+
+
+<div ng-class="subject">Validation message ---------------------------------------</div> <br />
+<!-- <div ng-app="myApp" ng-controller="validateCtrl">
+	<form  ng-app="myApp" name="myForm">
+
+		<p>Username:<br>
+			<input type="text" name="user" ng-model="user" required>
+			<span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+				<span ng-show="myForm.user.$error.required">Username is required.</span>
+			</span>
+		</p>
+
+		<p>Email:<br>
+			<input type="email" name="email" ng-model="email" required>
+			<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+				<span ng-show="myForm.email.$error.required">Email is required.</span>
+				<span ng-show="myForm.email.$error.email">Invalid email address.</span>
+			</span>
+		</p>
+
+		<p>
+			<input type="submit"
+			ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||
+			myForm.email.$dirty && myForm.email.$invalid">
+		</p>
+
+	</form>
+</div> -->
+<script>
+	// var app = angular.module('myApp', []);
+	// app.controller('validateCtrl', function($scope) {
+	// 	$scope.user = 'John Doe';
+	// 	$scope.email = 'john.doe@gmail.com';
+	// });
+</script>
+
+
+<div ng-class="mainSubject" >Angular API</div>
+<div ng-class="subject">Common API ---------------------------------------</div> <br />
+<!-- <div ng-app="myApp" ng-controller="myCtrl">
+	<p>{{ x1 }}</p>
+	<p>{{ x2 }}</p>
+	<p>{{ x3 }}</p>
+	<p>{{ x4 }}</p>	
+</div> -->
+<script>
+	// var app = angular.module('myApp', []);
+	// app.controller('myCtrl', function($scope) {
+	// 	$scope.init = "Jhon";
+	// 	$scope.x1 = angular.uppercase($scope.init);
+	// 	$scope.x2 = angular.lowercase($scope.init);
+	// 	$scope.x3 = "Is 'Jhon' String? " + angular.isString($scope.x1);
+	// 	$scope.x4 = "Is 'Jhon' String? " + angular.isNumber($scope.x1);
+	// });
+</script>
+
+<div ng-class="mainSubject" >Includes</div>
+<div ng-class="subject">Common Includes ---------------------------------------</div> <br />
+<div class="indent">If this command is used as client side application(without server) then It works only in firefox!</div>
+<!-- <div ng-app="myApp" ng-controller="customersCtrl"> 
+	<div ng-include="'myTable.html'">jj</div>
+</div> -->
+<script>
+	// var app = angular.module('myApp', []);
+	// app.controller('customersCtrl', function($scope, $http) {		
+	// 	$http.get("http://www.w3schools.com/angular/customers_sql.aspx").then(function (response) {
+	// 		console.log(response);
+	// 		$scope.names = response.data.records;
+	// 	});
+	// });
+</script>
+
+
+<div ng-class="mainSubject" >Directive</div>
+<div ng-class="subject">ng-bind-html ---------------------------------------</div> <br />
+<!-- this lib will define when use ng-bind-html to check security. It's necessery to define. -->
+<script src="angular-sanitize.js"></script>
+<div class="indent">When you are letting AngularJS write HTML in your application, you should check the HTML for dangerous code. By including the "angular-santize.js" module in your application you can do so by running the HTML code through the ngSanitize function.</div>
+<!-- <div ng-app="myApp" ng-controller="myCtrl">
+	<p ng-bind-html="myText"></p>
+</div> -->
+<script>
+	// var app = angular.module("myApp", ['ngSanitize']);
+	// app.controller("myCtrl", function($scope) {
+	// 	$scope.myText = "My name is: <h1>John Doe</h1>";
+	// });
+</script>
+
+
+<div ng-class="subject">ng-change ---------------------------------------</div> <br />
+<div class="indent">Supported by input, select, and textarea. </div>
+<!-- <div  ng-app="myApp" ng-controller="myCtrl">
+	<input type="text" ng-change="myFunc()" ng-model="myValue" />
+	<p>The input field has changed {{count}} times.</p>
+</div> -->
+<script>
+	// angular.module('myApp', [])
+	// .controller('myCtrl', function($scope) {
+	// 	$scope.count = 0;
+	// 	$scope.myFunc = function() {
+	// 		$scope.count++;
+	// 	};
+	// });
+</script>
+
+<div ng-class="subject">ng-checked ---------------------------------------</div> <br />
+<div class="indent">The checkbox, or radiobutton, will be checked if the expression inside the ng-checked attribute returns true. </div>
+<!-- <div  ng-app="">
+	<input type="checkbox" ng-model="all"> Check all<br><br>
+	<input type="checkbox" ng-checked="all">Volvo<br>
+	<input type="checkbox" ng-checked="all">Ford<br>
+	<input type="checkbox" ng-checked="all">Mercedes
+</div> -->
+
+<div ng-class="subject">ng-class ---------------------------------------</div> <br />
+<style>
+		/*.sky {
+			color:white;
+			background-color:lightblue;
+			padding:20px;
+			font-family:"Courier New";
+		}
+		.tomato {
+			background-color:coral;
+			padding:40px;
+			font-family:Verdana;
+		}*/
+	</style>
+<!--<div  ng-app="">	
+	 <select ng-model="home">
+		<option value="sky">Sky</option>
+		<option value="tomato">Tomato</option>
+	</select>
+	<div ng-class="home">
+		<h1>Welcome Home!</h1>
+		<p>I like it!</p>
+	</div> 
+</div> -->
+
+<div ng-class="subject">ng-if ---------------------------------------</div> <br />
+<!-- <div  ng-app="">
+	Keep HTML: <input type="checkbox" ng-model="myVar" ng-init="myVar = true">
+	<div ng-if="myVar">
+		<h1>Welcome</h1>
+		<p>Welcome to my home.</p>
+		<hr>
+	</div>
+</div> -->
+
+<div ng-class="subject">ng-href ---------------------------------------</div> <br />
+<div class="indent"> Note: All model that we want to use in ng-**** except ng-bind or ng-select which has bind behavior, should be in {{}} to fetch their value</div>
+<!-- <div  ng-app="">
+	<div ng-init="myVar = 'http://www.w3schools.com'">
+	<p><a ng-href="{{myVar}}">{{myVar}}</a></p>
+	</div>
+</div> -->
+
+<div ng-class="subject">ng-value ---------------------------------------</div> <br />
+<!-- <div ng-app="myApp" ng-controller="myCtrl">
+	<input ng-value="myVar">
+</div> -->
+<script>
+	// var app = angular.module('myApp', []);
+	// app.controller('myCtrl', function($scope) {
+	// 	$scope.myVar = "Hello World!";
+	// });
+</script>
+
+<div ng-class="mainSubject" >Routing</div>
+<div ng-class="subject">angular UI State nested ---------------------------------------</div> <br />
+<div class="indent"> If a ui-view is used into another ui-view then we should declare the nested state like elements.addElement that element is main state name and elements.addElement is name that ui-sref call it.<br /> For sending param to states there are two ways. First one is craete the param in controller and call state(We don't explain it here) and second is using URL. When we use URL(query) we must put the params in ({}) at front of the state on ui-sref. Then we should define them in url of state('/:elementTypeId' Note to the ':' after '/') So we could use params as parameter of function of templateUrl. This code is for node.js app and will note works here!
+<!-- <div ng-app="myApp" ng-controller="AppCtrls">
+	<div ui-view="main"></div>	
+	<div ui-view></div>
+</div> -->
+<script>
+	// angular.module('umconsole', ['ui.router'])
+	// .config(function ($stateProvider, $locationProvider) {
+	// 	$stateProvider
+	// 	.state("elements", {
+ //                    url: '/elements', //just display on address bar
+ //                    views: {
+ //                    	main: {
+ //                            templateUrl: 'templates/definations/elements', //link to app.js --> template --> then forwarded to required path 
+ //                            controller: 'elementCtrl'
+ //                        }
+ //                    }
+ //                })
+	// 	.state("elements.addElement", {
+	// 		url: '/:elementTypeId',
+ //                    // params: {elementTypeId : 3},
+ //                    views: {
+ //                    	'add@elements': {
+ //                            templateUrl: //'templates/definations/addElement'
+ //                            function (params) {
+ //                            	if (params && params.length > 0)
+ //                            		return 'templates/definations/addElement?elementTypeId=' + params.elementTypeId;
+ //                            	return 'templates/definations/addElement?elementTypeId=6';
+ //                            }
+ //                            ,
+ //                            controller: 'elementCtrl'
+ //                        }
+ //                    }
+ //                })
+	</script>
+
+
+
+	<!-- app.js:
+	var templatesRoutes = require('./routes/templates')
+	app.use('/templates', templatesRoutes)
+
+	template.js:
+	router.get('/definations/addElement', function(req,res){
+	res.render('partials/menu')
+
+	index.jade:
+	section#content.animate-fade-up(ui-view="main",style="margin:50px;")
+
+	element.jade:
+	a(ui-sref="elements.addElement({elementTypeId:'{{elementType.ElementTypeId}}'})") {{elementType.Name}}
+	div#ddd(ui-view="add" class="col-lg-7 col-md-5 col-sm-7")	
+	-->
+
+</body>
+</html>
